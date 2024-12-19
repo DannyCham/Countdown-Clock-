@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carousel with Countdown</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/fkg6zje.css">
+    <style>
+        .countdown-container {
+            height: 100vh;
+            background-image: url('assets/COUNTDOWN-CLOCK.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .countdown-boxes {
+            position: absolute;
+            top: 60%; /* Adjust to align with the boxes in the image */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 120px; /* Adjust spacing between the boxes */
+        }
+
+        .countdown-box {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ff9800;
+            font-size: 160px;
+            font-family: "job-clarendon", serif;
+            font-weight: 400;
+            font-style: normal;
+            letter-spacing: 5px;
+            text-align: center;
+            border: 4px solid orange; /* Orange border around the box */
+            border-radius: 16px;
+            box-shadow: 0px 0px 15px rgba(255, 165, 0, 0.8); /* Glow effect */
+        }
+
+        .countdown-label {
+            margin-top: 8px;
+            font-size: 22px; /* Font size for the label */
+            color: white; /* Label text color */
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width:1599px) {
+            .countdown-box {
+                width: 130px; /* Increase box size */
+                height: 130px;
+                font-size: 100px; /* Increase font size */
+                border: 0.02em solid orange; /* Border scales proportionally */
+                box-shadow: 0px 0px 30px rgba(255, 165, 0, 0.8); /* Larger glow effect */
+            }
+
+            .countdown-label {
+                font-size: 12px; /* Increase label font size */
+            }
+
+            .countdown-boxes {
+                gap: 100px; /* Adjust gap for larger screens */
+            }
+        }
+        
+        /* Media query for larger screens */
+        @media (min-width:2300px) {
+            .countdown-box {
+                width: 300px; /* Increase box size */
+                height: 300px;
+                font-size: 220px; /* Increase font size */
+                border: 0.02em solid orange; /* Border scales proportionally */
+                box-shadow: 0px 0px 30px rgba(255, 165, 0, 0.8); /* Larger glow effect */
+            }
+
+            .countdown-label {
+                font-size: 36px; /* Increase label font size */
+            }
+
+            .countdown-boxes {
+                gap: 150px; /* Adjust gap for larger screens */
+            }
+        }
+
+        @media (min-width: 2900px) {
+            .countdown-box {
+                width: 400px; /* Increase box size */
+                height: 400px;
+                font-size: 280px; /* Increase font size */
+                border: 0.02em solid orange; /* Border scales proportionally */
+                box-shadow: 0px 0px 30px rgba(255, 165, 0, 0.8); /* Larger glow effect */
+            }
+
+            .countdown-label {
+                font-size: 50px; /* Increase label font size */
+            }
+
+            .countdown-boxes {
+                gap: 200px; /* Adjust gap for larger screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+    <div class="countdown-boxes">
+        <div>
+            <div class="countdown-box" id="days">00</div>
+            <div class="countdown-label">ΗΜΕΡΕΣ</div>
+        </div>
+        <div>
+            <div class="countdown-box" id="hours">00</div>
+            <div class="countdown-label">ΩΡΕΣ</div>
+        </div>
+        <div>
+            <div class="countdown-box" id="minutes">00</div>
+            <div class="countdown-label">ΛΕΠΤΑ</div>
+        </div>
+        <div>
+            <div class="countdown-box" id="seconds">00</div>
+            <div class="countdown-label">ΔΕΥΤΕΡΟΛΕΠΤΑ</div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        const daysElement = document.getElementById('days');
+        const hoursElement = document.getElementById('hours');
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
+
+        function updateCountdown() {
+            const targetDate = new Date('2025-01-08T00:00:00');
+            const now = new Date();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                daysElement.textContent = days.toString().padStart(2, '0');
+                hoursElement.textContent = hours.toString().padStart(2, '0');
+                minutesElement.textContent = minutes.toString().padStart(2, '0');
+                secondsElement.textContent = seconds.toString().padStart(2, '0');
+            } else {
+                daysElement.textContent = '00';
+                hoursElement.textContent = '00';
+                minutesElement.textContent = '00';
+                secondsElement.textContent = '00';
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
